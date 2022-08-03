@@ -10,7 +10,7 @@ const CheckList: FC<SetupProps & Change> = ({
     tasks, 
     onChange, 
     handledisabled 
-    }) => {
+}) => {
     return(
         <>
             <div className='checklist-header'>
@@ -27,7 +27,7 @@ const CheckList: FC<SetupProps & Change> = ({
                                 id={task.title} 
                                 name={task.title} 
                                 checked={task.checked} 
-                                disabled={handledisabled(id)} 
+                                disabled={handledisabled()} 
                                 onChange={(e) => onChange(e, task.title)}
                             />
                         <label htmlFor={task.title}> {task.title}</label>

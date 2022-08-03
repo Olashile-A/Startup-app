@@ -73,7 +73,7 @@ const App = () => {
           <h2>My Startup Progress</h2>
           {state.map((item, index) => (
             <div key={index} className='mb-5'>
-              <CheckList {...item} onChange={handleChange} handledisabled={handledisabled}/>
+              <CheckList {...item} onChange={handleChange} handledisabled={() =>handledisabled(index)}/>
             </div>
           ))}
           <p>{randomText}</p>
