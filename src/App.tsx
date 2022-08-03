@@ -1,26 +1,85 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import CheckList from './CheckList';
+import { officeSetup } from './helpers';
+import {SetupProps } from './model';
 
-function App() {
+const App = () => {
+
+  const [state, setState] = useState<SetupProps[]>(officeSetup)
+  const [randomText, setRadomText] = useState<string>("")
+
+  const handleChange = ( event: { target: { checked: boolean; }; },  title: string) => {
+    const result = state.map((item) => {
+
+      let tak = item.tasks.map((item) => item.title === title ? {...item, checked: event?.target?.checked} : item)
+      const isCheck = tak.some(item => item.checked === false)
+
+      return {...item, tasks: tak, isChecked: isCheck === true ? false : true }
+      
+    })
+    localStorage.setItem('storedItem', JSON.stringify(result))
+    setState(result);
+  }
+
+  const handledisabled = (id: number) => {
+    let disabled = true;
+  
+    if (id === state[0].id) {
+      disabled = false;
+    } else {
+      state.forEach((section, index) => {
+        if (section.id === id) {
+          disabled = !state[index - 1].isChecked
+        } 
+      })
+    }
+  
+    return disabled;
+  }
+  
+
+  const handleRandomResponse = async () => {
+    const response = await fetch('https://uselessfacts.jsph.pl/random.json')
+    const result = await response.json()
+    setRadomText(result.text);
+    
+  }
+
+  useEffect(() => {
+    const allChecked = state.every((item) => item.isChecked === true)
+    if(allChecked === true) {
+      handleRandomResponse()
+    } else {
+      
+      setRadomText("")
+    }
+  },[state])
+
+  useEffect(() => {
+    const achivedData = localStorage.getItem('storedItem')
+    if(!achivedData) {
+      setState(officeSetup)
+      
+    }else{
+      setState(JSON.parse(achivedData || "[]"))
+    }
+  },[])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className='container'>
+        <h1>My Startup Progress</h1>
+        {state.map((item, index) => (
+          <div key={index} className="mb-5">
+            <CheckList {...item} onChange={handleChange} handledisabled={handledisabled}/>
+          </div>
+        ))}
+        <p>{randomText}</p>
+      </div>
     </div>
   );
 }
+
 
 export default App;

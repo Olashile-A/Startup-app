@@ -1,31 +1,57 @@
-.App {
-  text-align: center;
-}
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.App-link {
+  color: #61dafb;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.checklist-header{
   display: flex;
-  flex-direction: column;
+  margin-bottom: 12px;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.index-round-circle {
+  background-color: black;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  margin-right: 12px;
+}
+
+.mr-8 {
+  margin-right: 32px;
+}
+
+.mb-5 {
+  margin-bottom: 20px;
+}
+
+.check-icon {
+  font-size: 30px;
+}
+
+.header-index {
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.tasks {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.title{
+  font-weight: 800;
 }
 
 @keyframes App-logo-spin {
