@@ -67,15 +67,17 @@ const App = () => {
   },[])
 
   return (
-    <div className="App">
+    <div className='App'>
       <div className='container'>
-        <h1>My Startup Progress</h1>
-        {state.map((item, index) => (
-          <div key={index} className="mb-5">
-            <CheckList {...item} onChange={handleChange} handledisabled={handledisabled}/>
-          </div>
-        ))}
-        <p>{randomText}</p>
+        <div className='sub-container'>
+          <h2>My Startup Progress</h2>
+          {state.map((item, index) => (
+            <div key={index} className='mb-5'>
+              <CheckList {...item} onChange={handleChange} handledisabled={handledisabled}/>
+            </div>
+          ))}
+          <p>{randomText}</p>
+        </div>
       </div>
     </div>
   );
